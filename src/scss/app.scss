@@ -4,8 +4,8 @@
   padding: 0;
 }
 
-html{
-    height:100%;
+html {
+  height: 100%;
 }
 
 .nav {
@@ -30,13 +30,13 @@ button.btn-small:focus {
   background-color: #ffb300;
 }
 
-.input-field input[type]:focus:not([readonly])+label,
-    .input-field textarea:focus:not([readonly])+label {
-        color: #000000;
-    }
+.input-field input[type]:focus:not([readonly]) + label,
+.input-field textarea:focus:not([readonly]) + label {
+  color: #000000;
+}
 
-.input-field input{
-    background-color: #ffb300;
+.input-field input {
+  background-color: #ffb300;
 }
 
 /* Inactive/Active Default input field color */
@@ -44,42 +44,42 @@ button.btn-small:focus {
 .input-field input[type]:focus:not([readonly]),
 .input-field textarea:not([readonly]),
 .input-field textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #ffa600;
-    box-shadow: 0 1px 0 0 #ffa600;
+  border-bottom: 1px solid #ffa600;
+  box-shadow: 0 1px 0 0 #ffa600;
 }
 
-label.active{
-    color:black;
-    font-size: 17px;
+label.active {
+  color: black;
+  font-size: 17px;
 }
 
-.input-field input{
-    &::placeholder{
-color:rgba(34, 34, 34, 0.685);
-    }
+.input-field input {
+  &::placeholder {
+    color: rgba(34, 34, 34, 0.685);
+  }
 }
 
-body{
-    width:100%;
-    height:auto;
-    background-image: url('../assets/1.jpg');
-    background-position:center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding-bottom: 40px;
+body {
+  width: 100%;
+  height: auto;
+  background-image: url("../assets/1.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 40px;
 }
 
 .footer {
-    position: fixed;
-clear:both;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.123);
-    color: rgba(255, 255, 255, 0.445);
-    z-index: -1;
-    margin-top:30px;
-  }
+  position: fixed;
+  clear: both;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.123);
+  color: rgba(255, 255, 255, 0.445);
+  z-index: -1;
+  margin-top: 30px;
+}
