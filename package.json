@@ -1,4 +1,5 @@
 {
+  "homepage": "https://kacpermak1.github.io/TodoApp",
   "name": "test_app",
   "version": "0.1.0",
   "private": true,
@@ -6,8 +7,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
+    "materialize-css": "^1.0.0",
+    "node-sass": "^4.13.1",
     "react": "^16.12.0",
+    "react-countdown": "^2.2.1",
+    "react-countdown-now": "^2.1.2",
     "react-dom": "^16.12.0",
+    "react-materialize": "^3.5.9",
     "react-scripts": "3.4.0"
   },
   "scripts": {
