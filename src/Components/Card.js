@@ -30,7 +30,7 @@ class Card extends Component {
         const date = this.props.date + 'T' + this.props.time;
 
         return (
-            <div className="col s12 m6 l4">
+            <div className="col s12 m6 l6 xl4">
                 <div className={localStorage.getItem(this.props.i) ? "card deep-orange lighten-1 " : "card blue-grey darken-2"}>
                     <div className="card-content white-text">
                         <span className="card-title">{this.props.task}</span>

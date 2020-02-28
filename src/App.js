@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Card from './Components/Card';
 import WelcomeCard from './Components/WelcomeCard';
 import M from "materialize-css";
+import './assets/1.jpg';
 
 let currentHours = new Date().getHours();
 let currentMinutes = new Date().getMinutes();
@@ -27,7 +28,6 @@ class App extends Component {
   componentDidMount() {
 
     const context = this;
-
     document.addEventListener('DOMContentLoaded', function () {
       const dateElems = document.querySelectorAll('.datepicker');
       M.Datepicker.init(dateElems, {
@@ -105,8 +105,7 @@ class App extends Component {
   render() {
 
     return (
-      <>
-      <div style={{position: "relative", height:"100vh"}}>
+      <div className="main_content" style={{height:"100vh",overflow:"scroll", paddingBottom: window.innerWidth <= 1024? "120px" : "40px"}}>
         <div className="row container" style={{ marginTop: "20px" }}>
           <form className="col s12">
             <div className="input-field">
@@ -135,8 +134,7 @@ class App extends Component {
           </div>
         </div>
         <div className="footer" style={{ position: "fixed", bottom: "0" }}><p> Created by Kacper Makowka</p></div>
-        </div>
-      </>
+      </div>
     )
   }
 }
