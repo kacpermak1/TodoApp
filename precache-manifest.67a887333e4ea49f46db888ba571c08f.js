@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "075668afebb2e708b416983664f20d4b",
+    "revision": "c1a119e696333612cf8f0bc349d439db",
     "url": "/TodoApp/index.html"
   },
   {
-    "revision": "4cab6acd8878628c238e",
-    "url": "/TodoApp/static/css/main.52b2a68a.chunk.css"
+    "revision": "095d7f6e548c62c39f75",
+    "url": "/TodoApp/static/css/main.466f0123.chunk.css"
   },
   {
     "revision": "73fefba20bedc65412b3",
@@ -16,15 +16,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/TodoApp/static/js/2.50f3f2eb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4cab6acd8878628c238e",
-    "url": "/TodoApp/static/js/main.61f21627.chunk.js"
+    "revision": "095d7f6e548c62c39f75",
+    "url": "/TodoApp/static/js/main.11e36a78.chunk.js"
   },
   {
     "revision": "531f6cf6dd5605bc8f43",
     "url": "/TodoApp/static/js/runtime-main.bf8a0652.js"
   },
   {
+    "revision": "1a2f83b8c086c0c5a491ee553cf707f8",
+    "url": "/TodoApp/static/media/1.1a2f83b8.jpg"
+  },
+  {
     "revision": "10c4cf9832dc3540287d414c6c96e989",
-    "url": "/TodoApp/static/media/1.10c4cf98.jpg"
+    "url": "/TodoApp/static/media/1desktop.10c4cf98.jpg"
   }
 ]);
