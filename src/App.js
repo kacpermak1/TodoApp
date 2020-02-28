@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Card from './Components/Card';
 import WelcomeCard from './Components/WelcomeCard';
 import M from "materialize-css";
-import './assets/1.jpg';
 
 let currentHours = new Date().getHours();
 let currentMinutes = new Date().getMinutes();
@@ -19,7 +18,8 @@ class App extends Component {
       dates: localStorage.getItem('dates') ? JSON.parse(localStorage.getItem('dates')) : [],
       times: localStorage.getItem('times') ? JSON.parse(localStorage.getItem('times')) : [],
       dateVal: new Date().toLocaleDateString().split('.').reverse().join('-'),
-      timeVal: initState
+      timeVal: initState,
+      incompleteFormAttempt: false
     }
     this.dateVal = React.createRef();
     this.timeVal = React.createRef();
@@ -63,15 +63,15 @@ class App extends Component {
 
   onButtonClick = (e) => {
     e.preventDefault();
-    const { inputVal, dateVal, timeVal, tasks, dates, times } = this.state;
+    const { inputVal, dateVal, timeVal, tasks, dates, times, incompleteFormAttempt } = this.state;
 
     const newTasks = [...tasks, inputVal];
     const newDates = [...dates, dateVal];
     const newTimes = [...times, timeVal];
 
     if (inputVal !== '' && dateVal !== '' && timeVal !== '') {
-      this.setState({ tasks: newTasks, inputVal: '', dateVal: '', timeVal: '', dates: newDates, times: newTimes });
-    }
+      this.setState({ tasks: newTasks, inputVal: '', dateVal: '', timeVal: '', dates: newDates, times: newTimes, incompleteFormAttempt: false });
+    } else { this.setState({ incompleteFormAttempt: !incompleteFormAttempt }) }
   }
 
   removeTask = (taskIndex) => {
@@ -105,36 +105,43 @@ class App extends Component {
   render() {
 
     return (
-      <div className="main_content" style={{height:"100vh",overflow:"scroll", paddingBottom: window.innerWidth <= 1024? "120px" : "40px"}}>
-        <div className="row container" style={{ marginTop: "20px" }}>
-          <form className="col s12">
-            <div className="input-field">
-              <label>Task</label>
-              <input value={this.state.inputVal} onChange={this.onInputValChange} placeholder="to do" id="first_name" type="text" />
+      <>
+        <div className="background">
+          <div className="main_content" style={{ height: "100vh", overflow: "scroll", paddingBottom: window.innerWidth <= 1024 ? "120px" : "40px" }}>
+            <div className="row container" style={{ marginTop: "20px" }}>
+              <form className="col s12">
+                <div className="input-field">
+                  <label>Task</label>
+                  <input value={this.state.inputVal} onChange={this.onInputValChange} placeholder="to do" id="first_name" type="text" />
+                </div>
+                <div className="row">
+                  <div className="input-field col s6">
+                    <input type="text" ref={this.dateVal} onChange={this.onDateChange} value={this.state.dateVal} className="datepicker" placeholder="Deadline Date" />
+                    <label>Deadline date</label>
+                  </div>
+                  <div className="input-field col s6">
+                    <input type="text" ref={this.timeVal} onChange={this.onTimeChange} value={this.state.timeVal} id='time' placeholder="Deadline Time" className="timepicker" />
+                    <label htmlFor='time'>Deadline time</label>
+                  </div>
+                </div>
+                <div style={{ position: "relative" }}>
+                  <button onClick={this.onButtonClick} className="amber darken-1 btn">Add task</button>
+                  {this.state.incompleteFormAttempt ? <p className="form_message">Fill all the inputs above</p> : ''}
+                </div>
+              </form>
             </div>
-            <div className="row">
-              <div className="input-field col s6">
-                <input type="text" ref={this.dateVal} onChange={this.onDateChange} value={this.state.dateVal} className="datepicker" placeholder="Deadline Date" />
-                <label>Deadline date</label>
-              </div>
-              <div className="input-field col s6">
-                <input type="text" ref={this.timeVal} onChange={this.onTimeChange} value={this.state.timeVal} id='time' placeholder="Deadline Time" className="timepicker" />
-                <label htmlFor='time'>Deadline time</label>
+            <div className="container">
+              <div className="row">
+                {(this.state.tasks) &&
+                  this.state.tasks.map((task, i) => { return <Card task={task} key={i} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} /> })
+                }
+                {(this.state.tasks && this.state.tasks.length === 0) && <WelcomeCard />}
               </div>
             </div>
-            <button onClick={this.onButtonClick} className="amber darken-1 btn">Add task</button>
-          </form>
-        </div>
-        <div className="container">
-          <div className="row">
-            {(this.state.tasks) &&
-              this.state.tasks.map((task, i) => { return <Card task={task} key={i} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} /> })
-            }
-            {(this.state.tasks && this.state.tasks.length === 0) && <WelcomeCard />}
           </div>
+          <div className="footer" style={{ position: "fixed", bottom: "0" }}><p> Created by Kacper Makowka</p></div>
         </div>
-        <div className="footer" style={{ position: "fixed", bottom: "0" }}><p> Created by Kacper Makowka</p></div>
-      </div>
+      </>
     )
   }
 }

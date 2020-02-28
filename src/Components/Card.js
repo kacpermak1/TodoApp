@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Countdown from 'react-countdown-now';
 
-const Completionist = () => <span style={{color:'#ff3d00'}}>TIME IS UP!</span>;
+const Completionist = () => <span style={{ color: '#ff3d00' }}>TIME IS UP!</span>;
 
 class Card extends Component {
 
@@ -10,12 +10,18 @@ class Card extends Component {
     }
 
     onClickMark = () => {
-        if (localStorage.getItem(this.props.i)) {
-            this.setState({marked:''})
-            localStorage.removeItem(this.props.i, this.props.task)
+        if (localStorage.getItem(this.props.time+this.props.date)) {
+            this.setState({ marked: '' })
+            localStorage.removeItem(this.props.time+this.props.date, this.props.task)
         } else {
-            this.setState({marked:this.props.i})
-            localStorage.setItem(this.props.i, this.props.task)
+            this.setState({ marked: this.props.i })
+            localStorage.setItem(this.props.time+this.props.date, this.props.task)
+        }
+    }
+
+    removeMarkedTask = () => {
+        if(localStorage.getItem(this.props.time+this.props.date) && localStorage.getItem(this.props.time+this.props.date) === this.props.task){
+            localStorage.removeItem(this.props.time+this.props.date, this.props.task)
         }
     }
 
@@ -23,21 +29,33 @@ class Card extends Component {
         this.props.remove(this.props.i);
         this.props.removeDate(this.props.i);
         this.props.removeTime(this.props.i);
+        this.removeMarkedTask();
     }
 
     render() {
 
         const date = this.props.date + 'T' + this.props.time;
 
+        let localMarked;
+
+        if(localStorage.getItem(this.props.time+this.props.date) && localStorage.getItem(this.props.time+this.props.date) === this.props.task ){
+            localMarked = true
+        }else {localMarked = false}
+
         return (
             <div className="col s12 m6 l6 xl4">
-                <div className={localStorage.getItem(this.props.i) ? "card deep-orange lighten-1 " : "card blue-grey darken-2"}>
+                <div className={localMarked ? "card deep-orange lighten-1 " : "card blue-grey darken-2"} style={{ zIndex: "2" }}>
                     <div className="card-content white-text">
                         <span className="card-title">{this.props.task}</span>
                         <p>Deadline: </p>
-                        <p style={{ fontSize: '18px',marginBottom:'10px' }}>{this.props.date} {this.props.time}</p>
+                        <div style={{ fontSize: '18px', display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <i className="material-icons" style={{ fontSize: '18px', marginRight:"2px"}}>date_range</i> <p>{this.props.date.split('-').reverse().join('.')}</p>
+                        </div>
+                        <div style={{ fontSize: '18px', marginBottom: '10px', display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <i className="material-icons" style={{ fontSize: '18px',marginRight:"2px"}}>query_builder</i> <p>{this.props.time}</p>
+                        </div>
                         <p>Time remaining:</p>
-                        <Countdown date={date} renderer={props => <p style={{ fontSize: '18px' }}>{(props.days > 0) && props.days} {(props.days > 0 && props.days<2) && 'Day'} {(props.days > 1) && 'Days'} {(props.hours > 0) && props.hours} {(props.hours > 0) && 'h'} {(props.minutes > 0) && props.minutes + ' min'} {(props.seconds>0)&&props.seconds + ' sec'} {props.completed ? <Completionist /> : ''}</p>}/>
+                        <Countdown date={date} renderer={props => <p style={{ fontSize: '18px' }}>{(props.days > 0) && props.days}{(props.days > 0 && props.days < 2) && 'Day'}{(props.days > 1) && 'Days'} {(props.hours > 0) && props.hours}{(props.hours > 0) && 'h'} {(props.minutes > 0) && props.minutes + 'min'} {(props.seconds > 0) && props.seconds + 'sec'} {props.completed ? <Completionist /> : ''}</p>} />
                     </div>
                     <div className="card-action">
                         <button onClick={this.remove} style={{ marginRight: '6px' }} className="waves-effect waves-light amber darken-1 btn-small">Remove</button>

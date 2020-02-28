@@ -9,6 +9,11 @@ html {
   overflow-y: hidden;
 }
 
+body {
+  height: 100%;
+  overflow-y: hidden;
+}
+
 .nav {
   width: 100%;
   height: 50px;
@@ -33,7 +38,7 @@ button.btn-small:focus {
 
 .input-field input[type]:focus:not([readonly]) + label,
 .input-field textarea:focus:not([readonly]) + label {
-  color: #000000;
+  color: #455a64;
 }
 
 .input-field input {
@@ -41,50 +46,50 @@ button.btn-small:focus {
 }
 
 /* Inactive/Active Default input field color */
-.input-field input[type]:not([readonly]),
-.input-field input[type]:focus:not([readonly]),
-.input-field textarea:not([readonly]),
-.input-field textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #ffa600;
-  box-shadow: 0 1px 0 0 #ffa600;
+.input-field input[type]:focus:not([readonly]) {
+  border-bottom: 1px solid #ffb300 !important;
+  box-shadow: 0 1px 0 0 #ffb300 !important;
+}
+
+.input-field input[type]:not([readonly]) {
+  border-bottom: 1px solid #455a64e7 !important;
 }
 
 label.active {
-  color: black;
+  color: #455a64;
   font-size: 17px;
 }
 
 .input-field input {
   &::placeholder {
-    color: rgba(34, 34, 34, 0.685);
+    color: #455a6486;
   }
 }
 
-body {
-  margin:0 auto;
+.background {
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   background: url("../assets/1.jpg") no-repeat center fixed;
   background-size: cover;
-  overflow-y:hidden;
+  overflow-y: hidden;
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
-@media screen and (min-width: 1025px){
-    body{
+@media screen and (min-width: 1025px) {
+  .background {
     background: url("../assets/1desktop.jpg") no-repeat center fixed;
     background-size: cover;
-    overflow-y:hidden;
+    overflow-y: hidden;
     &::-webkit-scrollbar {
-        display: none;
-      }
+      display: none;
     }
   }
+}
 
 .footer {
-  position: fixed;
   clear: both;
   width: 100%;
   height: 30px;
@@ -93,16 +98,35 @@ body {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.123);
-  color: rgba(255, 255, 255, 0.445);
-  z-index: -1;
-  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.466);
+  z-index: 1;
 }
 
-
 .main_content::-webkit-scrollbar {
-    display: none;
+  display: none;
+}
+
+.main_content {
+  -ms-overflow-style: none;
+}
+
+.form_message{
+    color:rgb(255, 61, 0);
+    position: absolute;
+    left:120px;
+    bottom:6px;
+    animation-name: SlideIn;
+    animation-duration: 0.5s;
+}
+
+@keyframes SlideIn {
+    from {
+      opacity: 0;
+      transform: translate(100rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0);
+    }
   }
 
-  .main_content {
-    -ms-overflow-style: none;
-  }
