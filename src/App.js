@@ -19,8 +19,7 @@ class App extends Component {
       times: localStorage.getItem('times') ? JSON.parse(localStorage.getItem('times')) : [],
       dateVal: new Date().toLocaleDateString().split('.').reverse().join('-'),
       timeVal: initState,
-      incompleteFormAttempt: false,
-      reRender:false
+      incompleteFormAttempt: false
     }
     this.dateVal = React.createRef();
     this.timeVal = React.createRef();
@@ -47,10 +46,6 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.tasks !== this.state.tasks) {
       this.setLocalStorage()
-    }
-
-    if(prevState.reRender !== this.state.reRender){
-      window.location.reload()
     }
   }
 
@@ -108,12 +103,12 @@ class App extends Component {
   }
 
   prioritizeTask = (index) => {
-    const { tasks, dates, times, reRender } = this.state;
+    const { tasks, dates, times } = this.state;
     const arrayMove = require('array-move');
     const newTasks = arrayMove(tasks, index, 0)
     const newDates = arrayMove(dates, index, 0)
     const newTimes = arrayMove(times, index, 0)
-    this.setState({ tasks: newTasks, dates: newDates, times: newTimes, reRender: !reRender});
+    this.setState({ tasks: newTasks, dates: newDates, times: newTimes });
   }
 
   render() {
@@ -147,7 +142,7 @@ class App extends Component {
             <div className="container">
               <div className="row">
                 {(this.state.tasks) &&
-                  this.state.tasks.map((task, i) => { return <Card task={task} key={i} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} prioritize={this.prioritizeTask} /> })
+                  this.state.tasks.map((task, i) => { return <Card task={task} key={this.state.times[i]+this.state.dates[i]} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} prioritize={this.prioritizeTask} /> })
                 }
                 {(this.state.tasks && this.state.tasks.length === 0) && <WelcomeCard />}
               </div>
