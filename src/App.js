@@ -78,10 +78,9 @@ class App extends Component {
     const taskToRemove = this.state.tasks.splice(taskIndex, 1);
     const newArr = this.state.tasks.filter(task => task !== taskToRemove);
 
-    this.setState({ tasks: newArr });
-    if (JSON.parse(localStorage.getItem('tasks')).length === 1) {
-      window.localStorage.clear()
-    }
+    if (JSON.parse(localStorage.getItem('tasks')).length <= 1) {
+      localStorage.clear()
+    }else{this.setState({ tasks: newArr });}
   }
 
   removeDate = (dateIndex) => {
@@ -142,7 +141,7 @@ class App extends Component {
             <div className="container">
               <div className="row">
                 {(this.state.tasks) &&
-                  this.state.tasks.map((task, i) => { return <Card task={task} key={this.state.times[i]+this.state.dates[i]} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} prioritize={this.prioritizeTask} /> })
+                  this.state.tasks.map((task, i) => { return <Card task={task} key={this.state.times[i]+this.state.dates[i]+task} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} prioritize={this.prioritizeTask} /> })
                 }
                 {(this.state.tasks && this.state.tasks.length === 0) && <WelcomeCard />}
               </div>
