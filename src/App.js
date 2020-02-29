@@ -19,7 +19,8 @@ class App extends Component {
       times: localStorage.getItem('times') ? JSON.parse(localStorage.getItem('times')) : [],
       dateVal: new Date().toLocaleDateString().split('.').reverse().join('-'),
       timeVal: initState,
-      incompleteFormAttempt: false
+      incompleteFormAttempt: false,
+      reRender:false
     }
     this.dateVal = React.createRef();
     this.timeVal = React.createRef();
@@ -44,8 +45,12 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state.tasks) {
+    if (prevState.tasks !== this.state.tasks) {
       this.setLocalStorage()
+    }
+
+    if(prevState.reRender !== this.state.reRender){
+      window.location.reload()
     }
   }
 
@@ -102,11 +107,20 @@ class App extends Component {
     localStorage.setItem('times', JSON.stringify(this.state.times));
   }
 
+  prioritizeTask = (index) => {
+    const { tasks, dates, times, reRender } = this.state;
+    const arrayMove = require('array-move');
+    const newTasks = arrayMove(tasks, index, 0)
+    const newDates = arrayMove(dates, index, 0)
+    const newTimes = arrayMove(times, index, 0)
+    this.setState({ tasks: newTasks, dates: newDates, times: newTimes, reRender: !reRender});
+  }
+
   render() {
 
     return (
       <>
-        <div className="background">
+        <div className="background" >
           <div className="main_content" style={{ height: "100vh", overflow: "scroll", paddingBottom: window.innerWidth <= 1024 ? "120px" : "40px" }}>
             <div className="row container" style={{ marginTop: "20px" }}>
               <form className="col s12">
@@ -133,7 +147,7 @@ class App extends Component {
             <div className="container">
               <div className="row">
                 {(this.state.tasks) &&
-                  this.state.tasks.map((task, i) => { return <Card task={task} key={i} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} /> })
+                  this.state.tasks.map((task, i) => { return <Card task={task} key={i} i={i} time={this.state.times[i]} date={this.state.dates[i]} remove={this.removeTask} removeTime={this.removeTime} removeDate={this.removeDate} prioritize={this.prioritizeTask} /> })
                 }
                 {(this.state.tasks && this.state.tasks.length === 0) && <WelcomeCard />}
               </div>
