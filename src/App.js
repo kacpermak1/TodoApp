@@ -3,10 +3,17 @@ import Card from './Components/Card';
 import WelcomeCard from './Components/WelcomeCard';
 import M from "materialize-css";
 
-let currentHours = new Date().getHours();
-let currentMinutes = new Date().getMinutes();
+const d = new Date();
+let mm = d.getMonth() + 1;
+let dd = d.getDate();
+const yy = d.getFullYear();
+
+let currentHours = d.getHours();
+let currentMinutes = d.getMinutes();
 if (currentMinutes < 10) { currentMinutes = '0' + currentMinutes };
 if (currentHours < 10) { currentHours = '0' + currentHours };
+if (dd < 10) { dd = '0' + dd };
+if (mm < 10) { mm = '0' + mm };
 
 const initState = currentHours + ':' + currentMinutes;
 class App extends Component {
@@ -17,7 +24,7 @@ class App extends Component {
       tasks: localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [],
       dates: localStorage.getItem('dates') ? JSON.parse(localStorage.getItem('dates')) : [],
       times: localStorage.getItem('times') ? JSON.parse(localStorage.getItem('times')) : [],
-      dateVal: new Date().toLocaleDateString().split('.').reverse().join('-'),
+      dateVal: yy+"-"+mm+"-"+dd,
       timeVal: initState,
       incompleteFormAttempt: false
     }
